@@ -1,0 +1,33 @@
+:root{
+  --bg:#F3F4FB; --surface:#FFFFFF; --text:#14162B; --muted:#585C7E;
+  --primary:#4C5AD9; --line:#D9DBEE;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#111324; --surface:#1B1E38; --text:#F5F6FF; --muted:#9497C4;
+    --primary:#6C7BFF; --line:#2B2F55;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+a{color:var(--primary); text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--primary); outline-offset:3px; border-radius:3px}
+header.site{border-bottom:1px solid var(--line); background:var(--surface)}
+header.site div{max-width:46rem; margin:0 auto; padding:1rem 1.25rem; display:flex; gap:1.25rem; align-items:baseline; flex-wrap:wrap}
+header.site .brand{font-weight:700; font-size:1.15rem; color:var(--text); text-decoration:none; margin-right:auto}
+header.site nav a{color:var(--muted); text-decoration:none; font-size:.95rem}
+header.site nav a:hover{color:var(--primary); text-decoration:underline}
+main{max-width:46rem; margin:0 auto; padding:2.5rem 1.25rem 4rem}
+h1{font-size:2rem; line-height:1.2; margin:0 0 .5rem}
+h2{font-size:1.25rem; margin:2.25rem 0 .5rem}
+p,ul{margin:.75rem 0}
+ul{padding-left:1.25rem}
+li{margin:.35rem 0}
+.meta{color:var(--muted); font-size:.95rem; margin-bottom:1.5rem}
+.box{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem 1.25rem; margin:1.25rem 0}
+.box h2{margin-top:0}
+footer{max-width:46rem; margin:0 auto; padding:1.5rem 1.25rem 3rem; color:var(--muted); font-size:.9rem; border-top:1px solid var(--line)}
