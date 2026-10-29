@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<title>Forgot password – RXGE Auto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050607;
+    --surface: #111316;
+    --line: #262a30;
+    --text: #f4f5f6;
+    --muted: #9aa1aa;
+    --red: #ff1a2b;
+    --red-dim: #c4121f;
+    --ok: #4cc38a;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  main {
+    width: 100%;
+    max-width: 400px;
+    padding-left: 20px;
+    border-left: 3px solid var(--red);
+  }
+  .brand {
+    font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    margin: 0 0 28px;
+  }
+  .brand span { color: var(--red); }
+  h1 {
+    font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.05;
+    margin: 0 0 10px;
+  }
+  p.lead { color: var(--muted); margin: 0 0 24px; }
+  label { display: block; font-weight: 500; margin: 0 0 6px; }
+  .field { margin-bottom: 18px; }
+  .input-wrap { position: relative; }
+  input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text);
+    font: inherit;
+    padding: 12px 14px;
+  }
+  input.has-toggle { padding-right: 68px; }
+  input::placeholder { color: #5d646d; }
+  input:focus-visible, button:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+  }
+  .toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font: inherit;
+    font-size: 14px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .toggle:hover { color: var(--text); }
+  .primary {
+    width: 100%;
+    background: var(--red);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    padding: 13px 16px;
+    cursor: pointer;
+  }
+  .primary:hover { background: var(--red-dim); }
+  .primary:disabled { opacity: 0.55; cursor: default; }
+  .link {
+    background: none;
+    border: 0;
+    color: var(--muted);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+  .link:hover { color: var(--text); }
+  .msg { min-height: 1.5em; margin: 0 0 14px; font-size: 15px; }
+  .msg.error { color: #ff7a85; }
+  .msg.ok { color: var(--ok); }
+  .hint { color: var(--muted); font-size: 14px; margin: 18px 0 0; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">RXGE <span>Auto</span></p>
+
+  <!-- Loading -->
+  <section id="view-loading">
+    <p class="lead">Checking your link…</p>
+  </section>
+
+  <!-- Step 1: ask for a reset link -->
+  <section id="view-request" hidden>
+    <h1>Reset your password</h1>
+    <p class="lead">Enter the email you use for RXGE Auto. We’ll send you a link to choose a new password.</p>
+    <form id="form-request" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
+      </div>
+      <p class="msg" id="msg-request" role="status" aria-live="polite"></p>
+      <button class="primary" id="btn-request" type="submit">Send reset link</button>
+    </form>
+    <p class="hint">Can’t find the email? Check your spam folder.</p>
+  </section>
+
+  <!-- Step 2: choose a new password -->
+  <section id="view-update" hidden>
+    <h1>Choose a new password</h1>
+    <p class="lead">Use at least 8 characters.</p>
+    <form id="form-update" novalidate>
+      <div class="field">
+        <label for="pw1">New password</label>
+        <div class="input-wrap">
+          <input id="pw1" class="has-toggle" type="password" autocomplete="new-password" minlength="8" required>
+          <button class="toggle" type="button" data-target="pw1" aria-label="Show password">Show</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pw2">Confirm new password</label>
+        <div class="input-wrap">
+          <input id="pw2" class="has-toggle" type="password" autocomplete="new-password" minlength="8" required>
+          <button class="toggle" type="button" data-target="pw2" aria-label="Show password">Show</button>
+        </div>
+      </div>
+      <p class="msg" id="msg-update" role="status" aria-live="polite"></p>
+      <button class="primary" id="btn-update" type="submit">Update password</button>
+    </form>
+  </section>
+
+  <!-- Done -->
+  <section id="view-done" hidden>
+    <h1>Password updated</h1>
+    <p class="lead">Open the RXGE Auto app and log in with your new password.</p>
+  </section>
+
+  <!-- Expired / invalid link -->
+  <section id="view-expired" hidden>
+    <h1>This link has expired</h1>
+    <p class="lead">Reset links work once and expire after a short time. Request a new one to continue.</p>
+    <button class="primary" id="btn-again" type="button">Request a new link</button>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(function () {
+  var SUPABASE_URL = "https://wtckrkboklftvcbsolcz.supabase.co";
+  // Public anon key: safe to ship in a web page. Row-level security protects the data.
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0Y2tya2Jva2xmdHZjYnNvbGN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0OTI3MzAsImV4cCI6MjEwNTA2ODczMH0.dove2MKWmz1Ss9e7itqUFr6X4otquZS7E-KinlNhukQ";
+  var REDIRECT_TO = "https://rxgeauto.com/forgot-password/";
+
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: {
+      flowType: "implicit",
+      detectSessionInUrl: true,
+      persistSession: false,
+      autoRefreshToken: false
+    }
+  });
+
+  var views = ["loading", "request", "update", "done", "expired"];
+  function show(name) {
+    views.forEach(function (v) {
+      document.getElementById("view-" + v).hidden = (v !== name);
+    });
+  }
+  function $(id) { return document.getElementById(id); }
+  function setMsg(id, text, kind) {
+    var el = $(id);
+    el.textContent = text || "";
+    el.className = "msg" + (kind ? " " + kind : "");
+  }
+
+  var hash = window.location.hash || "";
+  var hasError = /[#&]error(_code|_description)?=/.test(hash);
+  var isRecovery = /[#&]type=recovery/.test(hash) || /[#&]access_token=/.test(hash);
+  var recoveryReady = false;
+
+  sb.auth.onAuthStateChange(function (event) {
+    if (event === "PASSWORD_RECOVERY") {
+      recoveryReady = true;
+      show("update");
+      $("pw1").focus();
+    }
+  });
+
+  if (hasError) {
+    show("expired");
+    history.replaceState(null, "", window.location.pathname);
+  } else if (isRecovery) {
+    // Give the library a moment to read the link and fire PASSWORD_RECOVERY.
+    setTimeout(function () {
+      if (!recoveryReady) show("expired");
+    }, 4000);
+  } else {
+    show("request");
+  }
+
+  // Show / hide password
+  Array.prototype.forEach.call(document.querySelectorAll(".toggle"), function (btn) {
+    btn.addEventListener("click", function () {
+      var input = $(btn.getAttribute("data-target"));
+      var reveal = input.type === "password";
+      input.type = reveal ? "text" : "password";
+      btn.textContent = reveal ? "Hide" : "Show";
+      btn.setAttribute("aria-label", reveal ? "Hide password" : "Show password");
+    });
+  });
+
+  // Request a reset link
+  $("form-request").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = $("email").value.trim();
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setMsg("msg-request", "Enter a valid email address.", "error");
+      return;
+    }
+    var btn = $("btn-request");
+    btn.disabled = true;
+    setMsg("msg-request", "");
+    sb.auth.resetPasswordForEmail(email, { redirectTo: REDIRECT_TO }).then(function (res) {
+      btn.disabled = false;
+      if (res.error && /rate|seconds|too many/i.test(res.error.message || "")) {
+        setMsg("msg-request", "Too many requests. Wait a minute and try again.", "error");
+        return;
+      }
+      // Same message whether or not the account exists, so emails can’t be probed.
+      setMsg("msg-request", "If an account exists for " + email + ", a reset link is on its way.", "ok");
+    }).catch(function () {
+      btn.disabled = false;
+      setMsg("msg-request", "Couldn’t reach the server. Check your connection and try again.", "error");
+    });
+  });
+
+  // Set the new password
+  $("form-update").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var p1 = $("pw1").value;
+    var p2 = $("pw2").value;
+    if (p1.length < 8) {
+      setMsg("msg-update", "Use at least 8 characters.", "error");
+      return;
+    }
+    if (p1 !== p2) {
+      setMsg("msg-update", "The two passwords don’t match.", "error");
+      return;
+    }
+    var btn = $("btn-update");
+    btn.disabled = true;
+    setMsg("msg-update", "");
+    sb.auth.updateUser({ password: p1 }).then(function (res) {
+      if (res.error) {
+        btn.disabled = false;
+        setMsg("msg-update", res.error.message || "Couldn’t update the password. Try again.", "error");
+        return;
+      }
+      sb.auth.signOut().finally(function () {
+        history.replaceState(null, "", window.location.pathname);
+        show("done");
+      });
+    }).catch(function () {
+      btn.disabled = false;
+      setMsg("msg-update", "Couldn’t reach the server. Check your connection and try again.", "error");
+    });
+  });
+
+  $("btn-again").addEventListener("click", function () {
+    history.replaceState(null, "", window.location.pathname);
+    show("request");
+    $("email").focus();
+  });
+})();
+</script>
+</body>
+</html>
